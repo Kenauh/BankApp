@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_dark">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp">
+        <ImageButton android:id="@+id/btn_cerrar"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:contentDescription="Cerrar"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿A quién le quieres enviar dinero?"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp" android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Busca un contacto o crea uno nuevo"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" android:layout_marginBottom="8dp"/>
+
+        <EditText android:id="@+id/et_buscar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Nombre, CLABE, tarjeta o celular"
+            android:textColorHint="@color/text_secondary"
+            android:textColor="@color/text_primary"
+            android:background="@null"
+            android:textSize="16sp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Puedes crear un nuevo contacto con su CLABE, tarjeta o teléfono."
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" android:layout_marginBottom="20dp"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contactos"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp" android:layout_marginBottom="8dp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_contactos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="16dp"/>
+
+</LinearLayout>

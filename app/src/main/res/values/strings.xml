@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BankApp</string>
+    <string name="transferir">Transferir</string>
+    <string name="recibir">Recibir y depositar</string>
+    <string name="continuar">Continuar con la cuenta</string>
+    <string name="monto">Monto</string>
+    <string name="saldo_disponible">Saldo disponible</string>
+    <string name="movimientos">Movimientos</string>
+</resources>
