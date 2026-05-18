@@ -5,11 +5,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TransferirActivity extends AppCompatActivity
         implements ContactoAdapter.OnContactoClickListener {
@@ -23,12 +29,12 @@ public class TransferirActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transferir);
 
-        cargarContactos();
-
         RecyclerView rv = findViewById(R.id.rv_contactos);
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ContactoAdapter(listaFiltrada, this);
         rv.setAdapter(adapter);
+
+        cargarContactosDesdeApi();
 
         EditText etBuscar = findViewById(R.id.et_buscar);
         etBuscar.addTextChangedListener(new TextWatcher() {
@@ -42,14 +48,32 @@ public class TransferirActivity extends AppCompatActivity
         findViewById(R.id.btn_cerrar).setOnClickListener(v -> finish());
     }
 
-    private void cargarContactos() {
-        listaCompleta.add(new Contacto("jhon",   "Mercado Pago W", "CLABE",  "9328"));
-        listaCompleta.add(new Contacto("Mamá",   "AZTECA",         "CLABE",  "8908"));
-        listaCompleta.add(new Contacto("mari",   "BBVA MEXICO",    "Débito", "9611"));
-        listaCompleta.add(new Contacto("oscar",  "SANTANDER",      "Débito", "6603"));
-        listaCompleta.add(new Contacto("Poncho", "NU MEXICO",      "CLABE",  "2200"));
-        listaCompleta.add(new Contacto("R",      "NU MEXICO",      "CLABE",  "3988"));
-        listaFiltrada.addAll(listaCompleta);
+    private void cargarContactosDesdeApi() {
+        SessionManager sessionManager = new SessionManager(this);
+        String account = sessionManager.getAccount();
+        if (account == null) return;
+
+        ApiService api = ApiClient.getRetrofit().create(ApiService.class);
+        api.getContactos(account).enqueue(new Callback<List<ContactoResponse>>() {
+            @Override
+            public void onResponse(Call<List<ContactoResponse>> call, Response<List<ContactoResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    listaCompleta.clear();
+                    for (ContactoResponse c : response.body()) {
+                        String ultimos = c.destinationAccount.length() >= 4
+                                ? c.destinationAccount.substring(c.destinationAccount.length() - 4)
+                                : c.destinationAccount;
+                        listaCompleta.add(new Contacto(c.name, c.bank, c.type, ultimos));
+                    }
+                    listaFiltrada.clear();
+                    listaFiltrada.addAll(listaCompleta);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ContactoResponse>> call, Throwable t) { }
+        });
     }
 
     private void filtrar(String query) {
@@ -68,9 +92,9 @@ public class TransferirActivity extends AppCompatActivity
     @Override
     public void onContactoClick(Contacto contacto) {
         Intent intent = new Intent(this, TransferMontoActivity.class);
-        intent.putExtra("nombre",  contacto.getNombre());
-        intent.putExtra("banco",   contacto.getBanco());
-        intent.putExtra("tipo",    contacto.getTipo());
+        intent.putExtra("nombre", contacto.getNombre());
+        intent.putExtra("banco", contacto.getBanco());
+        intent.putExtra("tipo", contacto.getTipo());
         intent.putExtra("ultimos", contacto.getUltimos());
         startActivity(intent);
     }
