@@ -3,67 +3,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="24dp"
     android:background="@color/bg_dark"
-    android:padding="24dp">
+    android:gravity="center">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BankApp"
-        android:textColor="@color/text_primary"
-        android:textSize="34sp"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:layout_marginTop="42dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ingresa con tu cuenta"
-        android:textColor="@color/text_secondary"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="28dp"/>
+        android:layout_marginBottom="40dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_dark"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:background="@color/bg_card"
+        android:padding="20dp">
 
         <EditText
-            android:id="@+id/et_cuenta_usuario"
+            android:id="@+id/etUsuario"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="Número de cuenta / usuario"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary"
-            android:background="@android:color/transparent"
-            android:inputType="text"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider_color"/>
+            android:layout_height="wrap_content"
+            android:hint="Número de cuenta"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA"
+            android:inputType="number"
+            android:backgroundTint="#FF820AD1"
+            android:layout_marginBottom="16dp"/>
 
         <EditText
-            android:id="@+id/et_password"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:hint="Contraseña"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary"
-            android:background="@android:color/transparent"
-            android:inputType="textPassword"/>
-    </LinearLayout>
+            android:textColor="#FFFFFF"
+            android:textColorHint="#AAAAAA"
+            android:inputType="textPassword"
+            android:backgroundTint="#FF820AD1"
+            android:layout_marginBottom="24dp"/>
 
-    <Button
-        android:id="@+id/btn_ingresar"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:text="Ingresar"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_purple_rounded"
-        android:layout_marginTop="26dp"/>
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="Ingresar"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:backgroundTint="#FF820AD1"/>
+
+    </LinearLayout>
 
 </LinearLayout>
