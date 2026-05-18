@@ -3,6 +3,7 @@ package com.example.bankapp;
 public class Contacto {
     private final String nombre, banco, tipo, ultimos;
 
+
     public Contacto(String nombre, String banco, String tipo, String ultimos) {
         this.nombre  = nombre;
         this.banco   = banco;
