@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,13 +12,23 @@ import com.example.bankapp.models.Contacto;
 
 import java.util.List;
 
+/**
+ * ContactoAdapter.java
+ *
+ * Adapter para el RecyclerView de contactos frecuentes.
+ * Cada ítem muestra:
+ *   – Avatar circular con iniciales (ej. "ML")
+ *   – Nombre del contacto
+ *   – Banco, tipo y últimos 4 dígitos de cuenta
+ */
 public class ContactoAdapter extends RecyclerView.Adapter<ContactoAdapter.ViewHolder> {
 
+    /** Contrato que implementa la Activity para saber cuándo se toca un contacto. */
     public interface OnContactoClickListener {
         void onContactoClick(Contacto contacto);
     }
 
-    private final List<Contacto> lista;
+    private final List<Contacto>         lista;
     private final OnContactoClickListener listener;
 
     public ContactoAdapter(List<Contacto> lista, OnContactoClickListener listener) {
@@ -36,9 +47,15 @@ public class ContactoAdapter extends RecyclerView.Adapter<ContactoAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contacto c = lista.get(position);
+
+        // Avatar con iniciales calculadas en el modelo
         holder.tvIniciales.setText(c.getIniciales());
+
         holder.tvNombre.setText(c.getNombre());
+
+        // "BankApp – Débito ····1234"
         holder.tvInfo.setText(c.getBanco() + " – " + c.getTipo() + " ····" + c.getUltimos());
+
         holder.itemView.setOnClickListener(v -> listener.onContactoClick(c));
     }
 
@@ -46,7 +63,10 @@ public class ContactoAdapter extends RecyclerView.Adapter<ContactoAdapter.ViewHo
     public int getItemCount() { return lista.size(); }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvIniciales, tvNombre, tvInfo;
+        TextView tvIniciales;
+        TextView tvNombre;
+        TextView tvInfo;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIniciales = itemView.findViewById(R.id.tv_iniciales);

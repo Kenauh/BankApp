@@ -1,15 +1,23 @@
 package com.example.bankapp.models;
 
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Respuesta del GET /api/saldo/{numeroCuenta}.
+ * {
+ *   "currentBalance"  : 5000.00,
+ *   "creditBalance"   : 3200.50,
+ *   "availableCredit" : 6799.50
+ * }
+ */
 public class SaldoResponse {
 
-    private double saldo;
-    private double limiteCredito;
+    @SerializedName("currentBalance")
+    public double currentBalance;
 
-    public double getSaldo() {
-        return saldo;
-    }
+    @SerializedName("creditBalance")
+    public double creditBalance;
 
-    public double getLimiteCredito() {
-        return limiteCredito;
-    }
+    @SerializedName("availableCredit")
+    public double availableCredit;
 }

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_recibir.xml
+    Pantalla "Recibir dinero".
+    Muestra el nombre y numero de cuenta del usuario con un boton Copiar.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_dark">
+
+    <!-- ── Barra superior ───────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_media_previous"
+            android:contentDescription="Regresar"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Recibir dinero"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <!-- ── Contenido ────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Avatar grande con inicial -->
+        <TextView
+            android:id="@+id/tv_avatar_recibir"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/circle_gray"
+            android:gravity="center"
+            android:text="&#128100;"
+            android:textSize="36sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Nombre del titular -->
+        <TextView
+            android:id="@+id/tv_nombre_titular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            android:textColor="@color/text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BankApp  &#183;  Cuenta de debito"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Tarjeta con el numero de cuenta -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_dark"
+            android:padding="24dp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu numero de cuenta"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Numero grande y visible -->
+            <TextView
+                android:id="@+id/tv_numero_cuenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0000000000"
+                android:textColor="@color/text_primary"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- Boton copiar -->
+            <Button
+                android:id="@+id/btn_copiar_cuenta"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Copiar numero de cuenta"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:background="@drawable/btn_purple_rounded"/>
+        </LinearLayout>
+
+        <!-- Banner instrucciones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_dark"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&#128161;  Como recibir dinero"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Comparte tu numero de cuenta de 10 digitos con la persona que te enviara dinero."
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. La persona abre BankApp, toca Transferir, busca tu nombre (si es contacto) o ingresa tu numero de cuenta."
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. Ingresa el monto y confirma. El dinero llega de forma inmediata a tu cuenta."
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

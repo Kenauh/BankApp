@@ -1,103 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_transfer_monto.xml
+    Pantalla de ingreso de monto y confirmacion de transferencia.
+    IDs dinamicos: tv_destinatario, tv_sub_info, et_monto, btn_continuar, btn_back.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_dark">
 
-    <LinearLayout android:layout_width="match_parent"
+    <!-- ── Barra superior ───────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
-        <ImageButton android:id="@+id/btn_back"
-            android:layout_width="40dp" android:layout_height="40dp"
+        android:paddingHorizontal="8dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_media_previous"
             android:contentDescription="Regresar"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Confirmar transferencia"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
     </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="0dp" android:layout_weight="1"
-        android:orientation="vertical" android:padding="24dp">
+    <!-- ── Contenido principal ──────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <TextView android:id="@+id/tv_destinatario"
+        <!-- Avatar circular con inicial del destinatario -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/tv_avatar_dest"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/circle_gray"
+                android:gravity="center"
+                android:text="?"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Nombre destinatario — llenado desde TransferMontoActivity -->
+                <TextView
+                    android:id="@+id/tv_destinatario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transferir a"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <!-- Banco y ultimos 4 — llenado desde TransferMontoActivity -->
+                <TextView
+                    android:id="@+id/tv_sub_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Banco · Tipo &#8901;&#8901;&#8901;&#8901;0000"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"
+            android:layout_marginBottom="28dp"/>
+
+        <!-- Etiqueta monto -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transferir a"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp" android:textStyle="bold"
-            android:layout_marginBottom="4dp"/>
-
-        <TextView android:id="@+id/tv_sub_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Banco · Tipo ····0000"
+            android:text="Monto a transferir"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" android:layout_marginBottom="32dp"/>
+            android:textSize="13sp"
+            android:layout_marginBottom="10dp"/>
 
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Monto"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp" android:layout_marginBottom="8dp"/>
-
-        <LinearLayout android:layout_width="match_parent"
+        <!-- Fila $ + campo monto -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical">
-            <TextView android:layout_width="wrap_content"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="$"
                 android:textColor="@color/text_primary"
-                android:textSize="32sp" android:textStyle="bold"
+                android:textSize="36sp"
+                android:textStyle="bold"
                 android:paddingEnd="8dp"/>
-            <EditText android:id="@+id/et_monto"
-                android:layout_width="0dp" android:layout_weight="1"
+
+            <EditText
+                android:id="@+id/et_monto"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="0.00"
                 android:textColor="@color/text_primary"
-                android:textSize="32sp" android:textStyle="bold"
+                android:textSize="36sp"
+                android:textStyle="bold"
                 android:background="@null"
                 android:inputType="numberDecimal"
                 android:selectAllOnFocus="true"/>
         </LinearLayout>
 
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-            android:background="@color/purple_primary" android:layout_marginBottom="24dp"/>
+        <!-- Linea decorativa morada bajo el monto -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/purple_primary"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="28dp"/>
 
-        <TextView android:layout_width="wrap_content"
+        <!-- Etiqueta "transfiriendo con" -->
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Transfiriendo con"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp" android:layout_marginBottom="12dp"/>
+            android:textSize="13sp"
+            android:layout_marginBottom="12dp"/>
 
-        <LinearLayout android:layout_width="160dp"
+        <!-- Tarjeta de origen de fondos -->
+        <LinearLayout
+            android:layout_width="180dp"
             android:layout_height="100dp"
             android:background="@drawable/banner_purple"
-            android:orientation="vertical" android:padding="16dp">
-            <TextView android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💳" android:textSize="20sp" android:layout_marginBottom="8dp"/>
-            <TextView android:layout_width="wrap_content"
+                android:text="&#128179;"
+                android:textSize="22sp"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cuenta de débito"
+                android:text="Cuenta de debito"
                 android:textColor="@color/purple_light"
-                android:textSize="13sp" android:textStyle="bold"/>
-            <TextView android:layout_width="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$0.00  ·  Envío inmediato"
-                android:textColor="@color/white" android:textSize="11sp"/>
+                android:text="Envio inmediato"
+                android:textColor="@color/white"
+                android:textSize="11sp"/>
         </LinearLayout>
+
     </LinearLayout>
 
-    <Button android:id="@+id/btn_continuar"
+    <!-- ── Boton confirmar (pegado al fondo) ────────────────── -->
+    <Button
+        android:id="@+id/btn_continuar"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_margin="16dp"
         android:text="Continuar con la cuenta"
         android:textColor="@color/white"
-        android:background="@drawable/btn_purple_rounded"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:background="@drawable/btn_purple_rounded"/>
 
 </LinearLayout>

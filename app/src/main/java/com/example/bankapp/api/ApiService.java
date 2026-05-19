@@ -1,10 +1,12 @@
 package com.example.bankapp.api;
 
 import com.example.bankapp.models.Contacto;
+import com.example.bankapp.models.ContactoRequest;
 import com.example.bankapp.models.LoginRequest;
 import com.example.bankapp.models.LoginResponse;
 import com.example.bankapp.models.SaldoResponse;
 import com.example.bankapp.models.TransferRequest;
+import com.example.bankapp.models.TransferResponse;
 
 import java.util.List;
 
@@ -14,20 +16,31 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
+/**
+ * ApiService.java
+ *
+ * Interfaz Retrofit que mapea cada método Java a un endpoint HTTP del backend.
+ * Los nombres aquí deben coincidir exactamente con las rutas de server.js.
+ */
 public interface ApiService {
 
+    /** POST /api/login  →  autentica al usuario y devuelve el JWT */
     @POST("login")
     Call<LoginResponse> login(@Body LoginRequest request);
 
-    @GET("saldo/{id}")
-    Call<SaldoResponse> obtenerSaldo(@Path("id") String id);
+    /** GET /api/saldo/{numeroCuenta}  →  saldo y crédito del usuario */
+    @GET("saldo/{numeroCuenta}")
+    Call<SaldoResponse> getSaldo(@Path("numeroCuenta") String numeroCuenta);
 
+    /** POST /api/transferir  →  envía dinero entre cuentas */
     @POST("transferir")
-    Call<Void> transferir(@Body TransferRequest request);
+    Call<TransferResponse> transferir(@Body TransferRequest request);
 
-    @GET("contactos/{id}")
-    Call<List<Contacto>> obtenerContactos(@Path("id") String id);
+    /** GET /api/contactos/{usuarioId}  →  lista de contactos frecuentes */
+    @GET("contactos/{usuarioId}")
+    Call<List<Contacto>> getContactos(@Path("usuarioId") String usuarioId);
 
+    /** POST /api/contactos  →  guarda un nuevo contacto */
     @POST("contactos")
-    Call<Void> guardarContacto(@Body Contacto contacto);
+    Call<Contacto> guardarContacto(@Body ContactoRequest request);
 }

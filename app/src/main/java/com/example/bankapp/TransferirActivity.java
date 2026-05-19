@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bankapp.api.ApiClient;
+import com.example.bankapp.api.ApiService;
 import com.example.bankapp.models.Contacto;
 
 import java.util.ArrayList;
@@ -19,6 +22,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * TransferirActivity.java
+ * CORRECCION: usa getAuthClient(this) para evitar error 401.
+ */
 public class TransferirActivity extends AppCompatActivity
         implements ContactoAdapter.OnContactoClickListener {
 
@@ -36,7 +43,7 @@ public class TransferirActivity extends AppCompatActivity
         adapter = new ContactoAdapter(listaFiltrada, this);
         rv.setAdapter(adapter);
 
-        cargarContactosDesdeApi();
+        cargarContactos();
 
         EditText etBuscar = findViewById(R.id.et_buscar);
         etBuscar.addTextChangedListener(new TextWatcher() {
@@ -50,23 +57,20 @@ public class TransferirActivity extends AppCompatActivity
         findViewById(R.id.btn_cerrar).setOnClickListener(v -> finish());
     }
 
-    private void cargarContactosDesdeApi() {
-        SessionManager sessionManager = new SessionManager(this);
-        String account = sessionManager.getAccount();
-        if (account == null) return;
+    private void cargarContactos() {
+        SessionManager session = new SessionManager(this);
+        String userId = session.getUserId();
+        if (userId == null) { finish(); return; }
 
-        ApiService api = ApiClient.getRetrofit().create(ApiService.class);
-        api.getContactos(account).enqueue(new Callback<List<ContactoResponse>>() {
+        // Llamada con JWT
+        ApiService api = ApiClient.getAuthClient(this).create(ApiService.class);
+
+        api.getContactos(userId).enqueue(new Callback<List<Contacto>>() {
             @Override
-            public void onResponse(Call<List<ContactoResponse>> call, Response<List<ContactoResponse>> response) {
+            public void onResponse(Call<List<Contacto>> call, Response<List<Contacto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaCompleta.clear();
-                    for (ContactoResponse c : response.body()) {
-                        String ultimos = c.destinationAccount.length() >= 4
-                                ? c.destinationAccount.substring(c.destinationAccount.length() - 4)
-                                : c.destinationAccount;
-                        listaCompleta.add(new Contacto(c.name, c.bank, c.type, ultimos));
-                    }
+                    listaCompleta.addAll(response.body());
                     listaFiltrada.clear();
                     listaFiltrada.addAll(listaCompleta);
                     adapter.notifyDataSetChanged();
@@ -74,7 +78,10 @@ public class TransferirActivity extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<List<ContactoResponse>> call, Throwable t) { }
+            public void onFailure(Call<List<Contacto>> call, Throwable t) {
+                Toast.makeText(TransferirActivity.this,
+                        "No se pudo cargar contactos", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -94,10 +101,11 @@ public class TransferirActivity extends AppCompatActivity
     @Override
     public void onContactoClick(Contacto contacto) {
         Intent intent = new Intent(this, TransferMontoActivity.class);
-        intent.putExtra("nombre", contacto.getNombre());
-        intent.putExtra("banco", contacto.getBanco());
-        intent.putExtra("tipo", contacto.getTipo());
-        intent.putExtra("ultimos", contacto.getUltimos());
+        intent.putExtra("nombre",       contacto.getNombre());
+        intent.putExtra("banco",        contacto.getBanco());
+        intent.putExtra("tipo",         contacto.getTipo());
+        intent.putExtra("ultimos",      contacto.getUltimos());
+        intent.putExtra("numeroCuenta", contacto.getNumeroCuenta());
         startActivity(intent);
     }
 }

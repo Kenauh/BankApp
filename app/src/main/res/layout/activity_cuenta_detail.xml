@@ -1,161 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_cuenta_detail.xml
+    Detalle de la Cuenta Nu (debito).
+    IDs de texto dinamico: tv_saldo_disponible, tv_cajitas_saldo,
+    tv_rendimiento, tv_mov_monto.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_dark">
 
-    <LinearLayout android:layout_width="match_parent"
+    <!-- ── Barra superior con boton regresar ────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
-        <ImageButton android:id="@+id/btn_back"
-            android:layout_width="40dp" android:layout_height="40dp"
+        android:paddingHorizontal="8dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_media_previous"
             android:contentDescription="Regresar"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Cuenta Nu"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <!-- Espaciador para centrar el titulo -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
     </LinearLayout>
 
-    <ScrollView android:layout_width="match_parent"
-        android:layout_height="0dp" android:layout_weight="1">
-        <LinearLayout android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
 
-            <TextView android:layout_width="wrap_content"
+            <!-- Etiqueta saldo -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Saldo disponible"
                 android:textColor="@color/text_secondary"
                 android:textSize="14sp"/>
 
-            <TextView android:id="@+id/tv_saldo_disponible"
+            <!-- Saldo principal — llenado desde CuentaDetailActivity -->
+            <TextView
+                android:id="@+id/tv_saldo_disponible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$0.00"
+                android:text="$-.--"
                 android:textColor="@color/text_primary"
-                android:textSize="36sp" android:textStyle="bold"
-                android:layout_marginBottom="20dp"/>
+                android:textSize="38sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
 
-            <LinearLayout android:layout_width="match_parent"
+            <!-- Banner cajeros -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/banner_purple"
                 android:padding="16dp"
                 android:layout_marginBottom="20dp">
-                <TextView android:layout_width="wrap_content"
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¡Tienes 2 retiros en cajeros al mes!\nTe reembolsamos la comisión."
-                    android:textColor="@color/white" android:textSize="14sp"/>
+                    android:text="&#161;Tienes 2 retiros en cajeros al mes!\nTe reembolsamos la comision."
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
+            <!-- Tarjeta Cajitas -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_dark"
                 android:padding="16dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="16dp">
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content"
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dinero en tus Cajitas"
-                        android:textColor="@color/text_secondary" android:textSize="13sp"/>
-                    <TextView android:id="@+id/tv_cajitas_saldo"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp"/>
+
+                    <!-- Cajitas — llenado desde CuentaDetailActivity -->
+                    <TextView
+                        android:id="@+id/tv_cajitas_saldo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$1,054.81"
+                        android:text="$-.--"
                         android:textColor="@color/text_primary"
-                        android:textSize="22sp" android:textStyle="bold"/>
-                    <TextView android:id="@+id/tv_rendimiento"
+                        android:textSize="22sp"
+                        android:textStyle="bold"/>
+
+                    <!-- Rendimiento — llenado desde CuentaDetailActivity -->
+                    <TextView
+                        android:id="@+id/tv_rendimiento"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="+$10.96"
-                        android:textColor="@color/green_positive" android:textSize="14sp"/>
+                        android:text="+$-.--"
+                        android:textColor="@color/green_positive"
+                        android:textSize="14sp"/>
                 </LinearLayout>
-                <TextView android:layout_width="wrap_content"
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="›" android:textColor="@color/text_secondary" android:textSize="24sp"/>
+                    android:text="&#8250;"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="24sp"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="match_parent"
+            <!-- Acciones rapidas -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="28dp">
 
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                <!-- Recibir -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:gravity="center">
-                    <TextView android:layout_width="56dp" android:layout_height="56dp"
-                        android:background="@drawable/circle_dark" android:gravity="center"
-                        android:text="↓" android:textColor="@color/purple_primary" android:textSize="22sp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Recibir" android:textColor="@color/text_secondary"
-                        android:textSize="12sp" android:layout_marginTop="6dp"/>
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/circle_dark"
+                        android:gravity="center"
+                        android:text="&#8595;"
+                        android:textColor="@color/purple_primary"
+                        android:textSize="22sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Recibir"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:layout_marginTop="6dp"/>
                 </LinearLayout>
 
-                <LinearLayout android:id="@+id/btn_transferir"
-                    android:layout_width="0dp" android:layout_weight="1"
+                <!-- Transferir -->
+                <LinearLayout
+                    android:id="@+id/btn_transferir"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:gravity="center"
-                    android:clickable="true" android:focusable="true">
-                    <TextView android:layout_width="56dp" android:layout_height="56dp"
-                        android:background="@drawable/circle_dark" android:gravity="center"
-                        android:text="↑" android:textColor="@color/purple_primary" android:textSize="22sp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Transferir" android:textColor="@color/text_secondary"
-                        android:textSize="12sp" android:layout_marginTop="6dp"/>
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <TextView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/circle_dark"
+                        android:gravity="center"
+                        android:text="&#8593;"
+                        android:textColor="@color/purple_primary"
+                        android:textSize="22sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Transferir"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:layout_marginTop="6dp"/>
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+                <!-- Pagar servicios -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:gravity="center">
-                    <TextView android:layout_width="56dp" android:layout_height="56dp"
-                        android:background="@drawable/circle_dark" android:gravity="center"
-                        android:text="📄" android:textSize="20sp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Pagar servicios" android:textColor="@color/text_secondary"
-                        android:textSize="12sp" android:gravity="center" android:layout_marginTop="6dp"/>
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/circle_dark"
+                        android:gravity="center"
+                        android:text="&#128196;"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pagar servicios"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:layout_marginTop="6dp"/>
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView android:layout_width="wrap_content"
+            <!-- Seccion movimientos -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Movimientos"
                 android:textColor="@color/text_primary"
-                android:textSize="18sp" android:textStyle="bold"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 android:layout_marginBottom="12dp"/>
 
-            <LinearLayout android:layout_width="match_parent"
+            <!-- Item de movimiento -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/card_dark"
                 android:padding="16dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
-                <TextView android:layout_width="36dp" android:layout_height="36dp"
-                    android:background="@drawable/circle_dark" android:gravity="center"
-                    android:text="🔒" android:textSize="18sp"/>
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1"
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/circle_dark"
+                    android:gravity="center"
+                    android:text="&#128274;"
+                    android:textSize="18sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:layout_marginStart="12dp">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="Agregaste dinero a tu Cajita"
-                        android:textColor="@color/text_primary" android:textSize="14sp"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="Cajita Turbo 🚀"
-                        android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cajita Turbo &#128640;"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"/>
                 </LinearLayout>
-                <LinearLayout android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" android:gravity="end">
-                    <TextView android:id="@+id/tv_mov_monto"
-                        android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="+$311.16" android:textColor="@color/green_positive"
-                        android:textSize="14sp" android:textStyle="bold"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="05 MAY" android:textColor="@color/text_secondary" android:textSize="12sp"/>
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <!-- Monto movimiento — llenado desde CuentaDetailActivity -->
+                    <TextView
+                        android:id="@+id/tv_mov_monto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+$-.--"
+                        android:textColor="@color/green_positive"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HOY"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"/>
                 </LinearLayout>
             </LinearLayout>
 
