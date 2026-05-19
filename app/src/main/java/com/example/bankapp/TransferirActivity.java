@@ -24,7 +24,11 @@ import retrofit2.Response;
 
 /**
  * TransferirActivity.java
- * CORRECCION: usa getAuthClient(this) para evitar error 401.
+ *
+ * CAMBIOS:
+ *  - Boton "+" abre AgregarContactoActivity.
+ *  - La lista se recarga en onResume() para mostrar contactos nuevos
+ *    al regresar de AgregarContactoActivity.
  */
 public class TransferirActivity extends AppCompatActivity
         implements ContactoAdapter.OnContactoClickListener {
@@ -32,6 +36,7 @@ public class TransferirActivity extends AppCompatActivity
     private final List<Contacto> listaCompleta = new ArrayList<>();
     private final List<Contacto> listaFiltrada = new ArrayList<>();
     private ContactoAdapter adapter;
+    private EditText etBuscar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +48,7 @@ public class TransferirActivity extends AppCompatActivity
         adapter = new ContactoAdapter(listaFiltrada, this);
         rv.setAdapter(adapter);
 
-        cargarContactos();
-
-        EditText etBuscar = findViewById(R.id.et_buscar);
+        etBuscar = findViewById(R.id.et_buscar);
         etBuscar.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int st, int c, int a) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -54,7 +57,21 @@ public class TransferirActivity extends AppCompatActivity
             public void afterTextChanged(Editable s) {}
         });
 
+        // Boton "+" -> agregar nuevo contacto
+        findViewById(R.id.btn_agregar_contacto).setOnClickListener(v ->
+                startActivity(new Intent(this, AgregarContactoActivity.class)));
+
         findViewById(R.id.btn_cerrar).setOnClickListener(v -> finish());
+    }
+
+    /**
+     * onResume recarga los contactos al volver de AgregarContactoActivity,
+     * para que el nuevo contacto aparezca inmediatamente en la lista.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarContactos();
     }
 
     private void cargarContactos() {
@@ -62,18 +79,16 @@ public class TransferirActivity extends AppCompatActivity
         String userId = session.getUserId();
         if (userId == null) { finish(); return; }
 
-        // Llamada con JWT
         ApiService api = ApiClient.getAuthClient(this).create(ApiService.class);
-
         api.getContactos(userId).enqueue(new Callback<List<Contacto>>() {
             @Override
             public void onResponse(Call<List<Contacto>> call, Response<List<Contacto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     listaCompleta.clear();
                     listaCompleta.addAll(response.body());
-                    listaFiltrada.clear();
-                    listaFiltrada.addAll(listaCompleta);
-                    adapter.notifyDataSetChanged();
+                    // Reaplicar filtro actual al recargar
+                    String q = etBuscar.getText().toString();
+                    filtrar(q);
                 }
             }
 
