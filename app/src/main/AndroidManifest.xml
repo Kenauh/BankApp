@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    AndroidManifest.xml
-    ─────────────────────────────────────────────────────────────
-    IMPORTANTE:
-    android:usesCleartextTraffic="true" es necesario para conectar
-    con el backend local via HTTP (no HTTPS) durante el desarrollo.
-    En producción, usa HTTPS y elimina este atributo.
-    ─────────────────────────────────────────────────────────────
--->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bankapp">
 

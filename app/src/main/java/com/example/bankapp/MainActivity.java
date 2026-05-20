@@ -18,7 +18,7 @@ import retrofit2.Response;
 /**
  * MainActivity.java
  *
- * FIX: el saldo se carga en onResume() en lugar de onCreate().
+ * el saldo se carga en onResume() en lugar de onCreate().
  * onResume se ejecuta cada vez que esta pantalla queda en primer plano,
  * incluyendo cuando el usuario regresa desde TransferMontoActivity,
  * por lo que el saldo siempre muestra el valor actualizado.

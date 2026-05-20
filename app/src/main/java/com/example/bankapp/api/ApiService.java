@@ -16,12 +16,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-/**
- * ApiService.java
- *
- * Interfaz Retrofit que mapea cada método Java a un endpoint HTTP del backend.
- * Los nombres aquí deben coincidir exactamente con las rutas de server.js.
- */
+
 public interface ApiService {
 
     /** POST /api/login  →  autentica al usuario y devuelve el JWT */
