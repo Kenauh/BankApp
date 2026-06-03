@@ -17,7 +17,7 @@ import com.example.bankapp.SessionManager;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://10.0.2.2:5000/api/";
+    private static final String BASE_URL = "https://bankapp-backend-1tza.onrender.com/";
 
 
     public static Retrofit getClient() {
